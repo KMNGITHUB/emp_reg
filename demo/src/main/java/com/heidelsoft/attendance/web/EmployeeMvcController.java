@@ -1,4 +1,4 @@
-package com.howtodoinjava.demo.web;
+package com.heidelsoft.attendance.web;
 
 import java.util.List;
 import java.util.Optional;
@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.howtodoinjava.demo.exception.RecordNotFoundException;
-import com.howtodoinjava.demo.model.EmployeeEntity;
-import com.howtodoinjava.demo.service.EmployeeService;
+import com.heidelsoft.attendance.exception.RecordNotFoundException;
+import com.heidelsoft.attendance.model.EmployeeEntity;
+import com.heidelsoft.attendance.service.EmployeeService;
 
 @Controller
 @RequestMapping("/")
@@ -58,7 +58,7 @@ public class EmployeeMvcController
 		return "redirect:/";
 	}
 	
-	@RequestMapping(path = "/puchEmployee/{id}", method = RequestMethod.POST)
+	@RequestMapping(path = "/puchEmployee/{id}")
 	public String puchEmployee(@PathVariable("id")Long id)throws RecordNotFoundException 
 	{
 		service.puchEmployee(id);

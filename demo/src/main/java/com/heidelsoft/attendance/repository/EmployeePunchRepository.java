@@ -1,9 +1,9 @@
-package com.howtodoinjava.demo.repository;
+package com.heidelsoft.attendance.repository;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.howtodoinjava.demo.model.EmpPunchLog;
+import com.heidelsoft.attendance.model.EmpPunchLog;
 
 @Repository
 public interface EmployeePunchRepository 

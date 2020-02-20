@@ -1,4 +1,4 @@
-package com.howtodoinjava.demo.model;
+package com.heidelsoft.attendance.model;
 
 import java.util.Set;
 
@@ -12,7 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-@Entity
+@Entity(name ="ForeignKeyAssoEntity")
 @Table(name = "EMPLOYEE_MASTER")
 public class EmployeeEntity {
 	@Id
@@ -30,8 +30,8 @@ public class EmployeeEntity {
 	private String empAddr;
 
 	
-	  @OneToMany(cascade=CascadeType.ALL)
-	  @JoinColumn(name="emp_id") 
+	  @OneToMany(cascade=CascadeType.ALL,mappedBy="employee")
+	 // @JoinColumn(name="emp_id") 
 	  private Set<EmpPunchLog>empPunchLogs;
 	 
 	/**

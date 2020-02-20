@@ -51,8 +51,8 @@
                                     </a>
                                 </td>
                                 <td>
-                                    <a th:href="@{/delete/{id}(id=${employee.empId})}" class="btn btn-primary">
-                                        <i class="fas fa-user-times ml-2"></i>
+                                    <a th:href="@{/puchEmployee/{id}(id=${employee.empId})}" class="btn btn-primary">
+                                        <i class="fas" th:text="${#lists.size(employee.empPunchLogs)}mod 2==0?'IN':'OUT'"></i>
                                     </a>
                                 </td>
                             </tr>

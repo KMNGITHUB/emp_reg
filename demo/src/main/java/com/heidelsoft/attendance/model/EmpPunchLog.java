@@ -1,14 +1,16 @@
 /**
  * 
  */
-package com.howtodoinjava.demo.model;
+package com.heidelsoft.attendance.model;
 
 import java.sql.Timestamp;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,11 +18,11 @@ import javax.persistence.Table;
  * @author lenovo
  *
  */
-@Entity
+@Entity(name ="ForeignKeyAssoEmpPunchLog")
 @Table(name="emp_punch_log")
 public class EmpPunchLog {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name="emp_punch_log_id",unique=true,nullable=false)
 	private Long empPunchLogId;
 	
@@ -31,6 +33,7 @@ public class EmpPunchLog {
 	private Timestamp empPunchTimestamp;
 	
 	@ManyToOne
+	@JoinColumn(name="emp_id", nullable=false)
 	private EmployeeEntity employee;
 
 	/**

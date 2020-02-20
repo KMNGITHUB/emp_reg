@@ -1,4 +1,4 @@
-package com.howtodoinjava.demo.service;
+package com.heidelsoft.attendance.service;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -10,11 +10,11 @@ import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.howtodoinjava.demo.exception.RecordNotFoundException;
-import com.howtodoinjava.demo.model.EmpPunchLog;
-import com.howtodoinjava.demo.model.EmployeeEntity;
-import com.howtodoinjava.demo.repository.EmployeePunchRepository;
-import com.howtodoinjava.demo.repository.EmployeeRepository;
+import com.heidelsoft.attendance.exception.RecordNotFoundException;
+import com.heidelsoft.attendance.model.EmpPunchLog;
+import com.heidelsoft.attendance.model.EmployeeEntity;
+import com.heidelsoft.attendance.repository.EmployeePunchRepository;
+import com.heidelsoft.attendance.repository.EmployeeRepository;
 
 @Service
 public class EmployeeService {
