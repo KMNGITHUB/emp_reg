@@ -1,25 +1,30 @@
 package com.howtodoinjava.demo.service;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.howtodoinjava.demo.exception.RecordNotFoundException;
+import com.howtodoinjava.demo.model.EmpPunchLog;
 import com.howtodoinjava.demo.model.EmployeeEntity;
+import com.howtodoinjava.demo.repository.EmployeePunchRepository;
 import com.howtodoinjava.demo.repository.EmployeeRepository;
 
 @Service
 public class EmployeeService {
 	
 	@Autowired
-	EmployeeRepository repository;
+	EmployeeRepository empMasterRepository;
 	
 	public List<EmployeeEntity> getAllEmployees()
 	{
-		List<EmployeeEntity> result = (List<EmployeeEntity>) repository.findAll();
+		List<EmployeeEntity> result = (List<EmployeeEntity>) empMasterRepository.findAll();
 		
 		if(result.size() > 0) {
 			return result;
@@ -30,7 +35,7 @@ public class EmployeeService {
 	
 	public EmployeeEntity getEmployeeById(Long id) throws RecordNotFoundException 
 	{
-		Optional<EmployeeEntity> employee = repository.findById(id);
+		Optional<EmployeeEntity> employee = empMasterRepository.findById(id);
 		
 		if(employee.isPresent()) {
 			return employee.get();
@@ -43,13 +48,13 @@ public class EmployeeService {
 	{
 		if(entity.getEmpId()  == null) 
 		{
-			entity = repository.save(entity);
+			entity = empMasterRepository.save(entity);
 			
 			return entity;
 		} 
 		else 
 		{
-			Optional<EmployeeEntity> employee = repository.findById(entity.getEmpId());
+			Optional<EmployeeEntity> employee = empMasterRepository.findById(entity.getEmpId());
 			
 			if(employee.isPresent()) 
 			{
@@ -58,11 +63,11 @@ public class EmployeeService {
 				newEntity.setEmpLastName(entity.getEmpLastName());
 				newEntity.setEmpAddr(entity.getEmpAddr());
 
-				newEntity = repository.save(newEntity);
+				newEntity = empMasterRepository.save(newEntity);
 				
 				return newEntity;
 			} else {
-				entity = repository.save(entity);
+				entity = empMasterRepository.save(entity);
 				
 				return entity;
 			}
@@ -71,13 +76,33 @@ public class EmployeeService {
 	
 	public void deleteEmployeeById(Long id) throws RecordNotFoundException 
 	{
-		Optional<EmployeeEntity> employee = repository.findById(id);
+		Optional<EmployeeEntity> employee = empMasterRepository.findById(id);
 		
 		if(employee.isPresent()) 
 		{
-			repository.deleteById(id);
+			empMasterRepository.deleteById(id);
 		} else {
 			throw new RecordNotFoundException("No employee record exist for given id");
 		}
 	} 
+	
+	public void puchEmployee(Long id) throws RecordNotFoundException {
+		Optional<EmployeeEntity>employee = empMasterRepository.findById(id);
+		if(employee.isPresent()) {
+			String status ="IN";
+			Set<EmpPunchLog>punchList = employee.get().getEmpPunchLogs();
+			Timestamp timestamp = new Timestamp(Calendar.getInstance().getTimeInMillis());
+			status = punchList.size()%2==0?status:"OUT";
+			EmpPunchLog punchRecord = new EmpPunchLog();
+			punchRecord.setEmployee(employee.get());
+			punchRecord.setEmpPunchStatus(status);
+			punchRecord.setEmpPunchTimestamp(timestamp);
+			punchList.add(punchRecord);
+			EmployeeEntity employeeEntity = employee.get();
+			employeeEntity.setEmpPunchLogs(punchList);
+			empMasterRepository.save(employeeEntity);
+		} else {
+			throw new RecordNotFoundException("No employee record exist for given id");
+		}
+	}
 }

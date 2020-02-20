@@ -29,11 +29,11 @@ public class EmployeeEntity {
 	@Column(name = "emp_addr")
 	private String empAddr;
 
-	/*
-	 * @OneToMany(cascade=CascadeType.ALL)
-	 * 
-	 * @JoinColumn(name="emp_id") private Set<EmpPunchLog>empPunchLogs;
-	 */
+	
+	  @OneToMany(cascade=CascadeType.ALL)
+	  @JoinColumn(name="emp_id") 
+	  private Set<EmpPunchLog>empPunchLogs;
+	 
 	/**
 	 * @return the empId
 	 */
@@ -92,22 +92,25 @@ public class EmployeeEntity {
 
 	/**
 	 * @return the empPunchLogs
-	 *//*
-		 * public Set<EmpPunchLog> getEmpPunchLogs() { return empPunchLogs; }
-		 */
+	 */
+	  public Set<EmpPunchLog> getEmpPunchLogs() { 
+		  return empPunchLogs; 
+	  }
+		 
 
 	/**
 	 * @param empPunchLogs the empPunchLogs to set
 	 */
-	/*
-	 * public void setEmpPunchLogs(Set<EmpPunchLog> empPunchLogs) {
-	 * this.empPunchLogs = empPunchLogs; }
-	 */
+	
+	  public void setEmpPunchLogs(Set<EmpPunchLog> empPunchLogs) {
+		  this.empPunchLogs = empPunchLogs; 
+	  }
+	 
 
 	@Override
 	public String toString() {
 		return "EmployeeMasterEntity [id=" + empId + ", empFirstName=" + empFirstName + ", empLastName=" + empLastName
-				+ ", empAddr=" + empAddr /* + ", empPunchLogs=" + empPunchLogs */+ "]";
+				+ ", empAddr=" + empAddr  + ", empPunchLogs=" + empPunchLogs + "]";
 	}
 
 }

@@ -57,4 +57,11 @@ public class EmployeeMvcController
 		service.createOrUpdateEmployee(employee);
 		return "redirect:/";
 	}
+	
+	@RequestMapping(path = "/puchEmployee/{id}", method = RequestMethod.POST)
+	public String puchEmployee(@PathVariable("id")Long id)throws RecordNotFoundException 
+	{
+		service.puchEmployee(id);
+		return "redirect:/";
+	}
 }
